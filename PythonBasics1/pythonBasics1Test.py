@@ -1,5 +1,6 @@
-
 import pythonBasics1
+
+
 # main() is already set up to call the functions
 # we want to test with a few different inputs,
 # printing 'OK' when each function is correct.
@@ -11,13 +12,14 @@ def test(got, expected):
         prefix = ' OK '
     else:
         prefix = '  X '
-    print ('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+    print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+
 
 # Calls the functions in pythonBasics1 with interesting inputs.
 def main():
     # set which functions to test
     check_odd_range = True
-    check_has_lower_case = False
+    check_has_lower_case = True
     check_fizz_buzz = False
 
     if check_odd_range:
@@ -56,16 +58,17 @@ def main():
     if check_fizz_buzz:
         print("-------------------------------------------------------")
         print('Testing fizz_buzz')
-        test(pythonBasics1.fizz_buzz(6),"Fizz")
-        test(pythonBasics1.fizz_buzz(45),"FizzBuzz")
-        test(pythonBasics1.fizz_buzz(2),"2")
-        test(pythonBasics1.fizz_buzz(-3),"-3")
-        test(pythonBasics1.fizz_buzz(15),"FizzBuzz")
-        test(pythonBasics1.fizz_buzz(10),"Buzz")
-        test(pythonBasics1.fizz_buzz(21),"Fizz")
-        test(pythonBasics1.fizz_buzz(0),"0")
-        test(pythonBasics1.fizz_buzz(25),"Buzz")
-        test(pythonBasics1.fizz_buzz(101),"101")
+        test(pythonBasics1.fizz_buzz(6), "Fizz")
+        test(pythonBasics1.fizz_buzz(45), "FizzBuzz")
+        test(pythonBasics1.fizz_buzz(2), "2")
+        test(pythonBasics1.fizz_buzz(-3), "-3")
+        test(pythonBasics1.fizz_buzz(15), "FizzBuzz")
+        test(pythonBasics1.fizz_buzz(10), "Buzz")
+        test(pythonBasics1.fizz_buzz(21), "Fizz")
+        test(pythonBasics1.fizz_buzz(0), "0")
+        test(pythonBasics1.fizz_buzz(25), "Buzz")
+        test(pythonBasics1.fizz_buzz(101), "101")
+
 
 if __name__ == '__main__':
-  main()
+    main()

@@ -24,8 +24,14 @@ def odd_range(num1, num2):
 # otherwise return False
 def has_lower_case(s):
     # YOUR CODE HERE
+    flag = False
 
-    return
+    for letter in s:
+        if letter.islower():
+            flag = True
+            break
+
+    return flag
 
 
 # Part C. fizz_buzz
