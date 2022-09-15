@@ -24,14 +24,13 @@ def odd_range(num1, num2):
 # otherwise return False
 def has_lower_case(s):
     # YOUR CODE HERE
-    flag = False
-
-    for letter in s:
-        if letter.islower():
-            flag = True
-            break
-
-    return flag
+    for i in s:
+        temp = i.islower()
+        if temp == True:
+            return True
+        break
+        if (temp != 1):
+            return False
 
 
 # Part C. fizz_buzz
@@ -46,5 +45,15 @@ def has_lower_case(s):
 # or equal to 0 return the num as a string
 def fizz_buzz(num):
     # YOUR CODE HERE
+    if num % 3 == 0:
+        return 'Fizz'
+    elif num % 5 == 0:
+        return 'Buzz'
+    elif num % 3 == 0 and num % 5 == 0:
+        return 'FizzBuzz'
+    else:
+        return str(num)
 
-    return
+
+for num in range(1, 10):
+    print(fizz_buzz(num), end="\n")
