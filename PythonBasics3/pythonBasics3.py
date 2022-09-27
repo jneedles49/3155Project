@@ -14,8 +14,7 @@ import re
 # Note: Be sure to use RegEx!
 def starts_with_non_number(s):
   # YOUR CODE HERE
-
-  return
+  return bool(re.match('^[^\D].*$', s))
 
 # # Part B. multiple_words
 # Define a function multiple_words(s) that takes a string and returns true
@@ -25,8 +24,9 @@ def starts_with_non_number(s):
 # with at least one character on either side!
 def multiple_words(s):
   # YOUR CODE HERE
+  return bool(re.search('[^\S] + [^\S]', s))
 
-  return
+
 
 
 # Part C. reserved_us_tld
@@ -36,7 +36,7 @@ def multiple_words(s):
 # We also want to make sure that we are using a secure connection, so it should start with https
 # Note: URLs will be in the format http://www.example.com. There will not be anything after the TLD
 # Hint: the URL should start with https and end with one of the TLDs
-def reserved_us_tld(s):
-  # YOUR CODE HERE
+#def reserved_us_tld(s):
+      # YOUR CODE HERE
   
-  return
+
