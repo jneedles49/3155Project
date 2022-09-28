@@ -36,7 +36,8 @@ def multiple_words(s):
 # We also want to make sure that we are using a secure connection, so it should start with https
 # Note: URLs will be in the format http://www.example.com. There will not be anything after the TLD
 # Hint: the URL should start with https and end with one of the TLDs
-#def reserved_us_tld(s):
-      # YOUR CODE HERE
+def reserved_us_tld(s):
+  # YOUR CODE HERE
+  return bool(re.search('^https://www\.(\w+)(\.\w+)*?\.(gov|edu|mil)$', s))
   
 
