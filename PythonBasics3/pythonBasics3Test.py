@@ -34,6 +34,29 @@ class TestPythonBasicsOne(unittest.TestCase):
 
         self.assertEqual(pythonBasics3.multiple_words(" one-sided? "), False)
 
+        self.assertEqual(pythonBasics3.multiple_words("That's 5/10"), False)
+
+        self.assertEqual(pythonBasics3.multiple_words("That's an and-one"), False)
+
+        self.assertEqual(pythonBasics3.multiple_words(" two-sided? "), False)
+
+    # Test case for reserved_us_tld
+    def test_reserved_us_tld(self):
+        self.assertEqual(pythonBasics3.reserved_us_tld("http://www.whitehouse.gov"), False)
+
+        self.assertEqual(pythonBasics3.reserved_us_tld("https://www.charlotte.edu"), True)
+
+        self.assertEqual(pythonBasics3.reserved_us_tld("https://uncc.instructure.com"), False)
+
+        self.assertEqual(pythonBasics3.reserved_us_tld("https://www.education.com"), False)
+
+        self.assertEqual(pythonBasics3.reserved_us_tld("https://www.norad.mil"), True)
+
+        self.assertEqual(pythonBasics3.reserved_us_tld("https://www.congress.gov"), True)
+
+        # This does match the description (https and .edu) but it includes extra stuff. Feel free to implement this functionality.
+        self.assertEqual(pythonBasics3.reserved_us_tld("https://selfservice.uncc.edu/pls/BANPROD/twbkwbis.P_GenMenu?name=homepage"),False)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=1)
