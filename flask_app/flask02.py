@@ -12,12 +12,12 @@ app = Flask(__name__)  # create an app
 # In this case it makes it so anyone going to "your-url/" makes this function
 # get called. What it returns is what is shown as the web page
 @app.route('/')
-@app.route('/notes')
-def get_notes():
+@app.route('/notes/<note_id>')
+def get_notes(note_id):
     notes = {1: {'title': 'First Name', 'text': 'This is my first note', 'date': '10-1-2020'},
              2: {'title': 'Second note', 'text': 'This is my second note', 'date': '10-2-2020'}}
 
-    return render_template('notes.html', notes=notes)
+    return render_template('note.html', note=notes[int(note_id)])
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
