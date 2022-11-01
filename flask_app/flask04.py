@@ -6,8 +6,11 @@ from flask import Flask  # Flask is the web app that we will customize
 from flask import render_template
 from flask import request
 from flask import redirect, url_for
+from database import db
+
 
 app = Flask(__name__)  # create an app
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
 notes = {1: {'title': 'First Name', 'text': 'This is my first note', 'date': '10-1-2020'},
          2: {'title': 'Second note', 'text': 'This is my second note', 'date': '10-2-2020'},
          3: {'title': 'Third note', 'text': 'This is my third note', 'date': '10-3-2020'}
