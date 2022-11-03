@@ -5,10 +5,15 @@ List Projects/Tasks: This feature will be used to list projects and tasks the us
 	- User is adding and removing tasks.
 
 View a Project/Task: 
+	-User is viewing a specific project
+	-User is viewing a specific task
+	
 
 Create a Project/Task:
 
 Edit a Project/Task:
+	-User is in Project and clicks to edit, Project will load with current coding, etc that is editable.
+	-User is in Tasks and clicks to edit. Admin can edit the details of a task, users can edit whether a task is complete or still in progress.
 
 Comment on Project/Task: The user will use this feature in order to add addition comments to their project/tasks.
 	- Add comments to project to add detail or explanation.
@@ -20,7 +25,9 @@ Register a User:
 
 Sign In/Out
 
-Pinning:
+Pinning: 
+	- Admin or users can pin a project or task that needs attention
+	- Pinning automatically moves a project or task to the top of the list
 
 Sorting: User will be able to sort their projects in different ways.
 	- Alphabetical
