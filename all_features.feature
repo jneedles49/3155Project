@@ -22,7 +22,11 @@ Sign In/Out
 
 Pinning:
 
-Sorting:
+Sorting: User will be able to sort their projects in different ways.
+	- Alphabetical
+	- Size
+	- Date Created (Ascending/Descending)
+	- Last Edited 
 
 Actions Log 
 
