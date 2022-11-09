@@ -37,8 +37,9 @@ def index():
 def get_notes():
     a_user = db.session.query(User).filter_by(email='omikombo@uncc.edu').one()
     my_notes = db.session.query(Note).all()
-    print (my_notes)
+    print(my_notes)
     return render_template('notes.html', notes=my_notes, user=a_user)
+
 
 @app.route('/note/<note_id>')
 def get_note(note_id):
@@ -66,6 +67,15 @@ def new_note():
     else:
         a_user = db.session.query(User).filter_by(email='omikombo@uncc.edu').one()
         return render_template('new.html', user=a_user)
+
+
+@app.route('/notes/edit/<note_id>')
+def update_note(note_id):
+    a_user = db.ssession.query(User).filter_by(email='omikombo@uncc.edu').one()
+
+    my_note = db.session.query(Note).filter_by(id=note_id).one()
+
+    return render_template('new.html', note=my_note, user=a_user)
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
