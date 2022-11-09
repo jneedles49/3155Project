@@ -71,7 +71,7 @@ def new_note():
 
 @app.route('/notes/edit/<note_id>')
 def update_note(note_id):
-    a_user = db.ssession.query(User).filter_by(email='omikombo@uncc.edu').one()
+    a_user = db.session.query(User).filter_by(email='omikombo@uncc.edu').one()
 
     my_note = db.session.query(Note).filter_by(id=note_id).one()
 
