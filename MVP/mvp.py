@@ -7,7 +7,9 @@ from flask import render_template, request, redirect, url_for, Flask
 
 from databaseProject import db
 from modelsProject import Project as Project
-from models import User as User
+
+from modelsProject import User as User
+from flask import session
 
 app = Flask(__name__)  # create an app
 
@@ -29,8 +31,9 @@ with app.app_context():
 @app.route('/')
 @app.route('/index')
 def index():
-    a_user = db.session.query(User).filter_by(email='omikombo@uncc.edu').one()
-    return render_template('index.html', user=a_user)
+    if session.get('user'):
+        return render_template("index.html", user=session['user'])
+    return render_template("index.html")
 
 
 @app.route('/projects')
