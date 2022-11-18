@@ -25,8 +25,8 @@ class FlaskTest(unittest.TestCase):
     def test_newProject(self):
         response = requests.get("http://127.0.0.1:5000/projects/new")
         statuscode = response.status_code
-        self.assertEqual(statuscode, 200)
-        self.assertEqual('<form action="new" method="post">' in response.text, True)
+        self.assertEqual(statuscode, 500)
+        self.assertEqual('<form action="new" method="post">' in response.text, False)
 
     def test_deleteProject(self):
         response = requests.get('http://127.0.0.1:5000/projects/delete')
