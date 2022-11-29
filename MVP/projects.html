@@ -10,12 +10,15 @@
     </head>
     <body>
     <nav>
-        <a href="{{ url_for('index') }}"> Home</a> ||
+        <a href="{{ url_for('indexProject') }}"> Home</a> ||
         <a href="{{ url_for('getProjects') }}"> My Projects</a> ||
         <a href="{{ url_for('newProject') }}">Add Project</a> ||
+        <a href="{{ url_for('login') }}">Login</a> ||
+        <a href="{{ url_for('register') }}">Register</a> ||
+        <a href="{{ url_for('logout') }}">Logout</a>
     </nav>
 
-        <h1>Welcome {{user.name}} to Group 14 Projects App!</h1>
+        <h1>Welcome {% if user %}{{user}}{% endif %}to the Group 14's Projects App!</h1>
 
         <h1>Listing projects</h1>
 
