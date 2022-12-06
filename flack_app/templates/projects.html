@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Projects</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Group 14 Projects App">
+        <title>Group 14 Projects App</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='mainProject.css') }}">
+    </head>
+    <body>
+    <nav>
+        <a href="{{ url_for('indexProject') }}"> Home</a> ||
+        <a href="{{ url_for('getProjects') }}"> My Projects</a> ||
+        <a href="{{ url_for('newProject') }}">Add Project</a> ||
+        <a href="{{ url_for('login') }}">Login</a> ||
+        <a href="{{ url_for('registerProject') }}">Register</a> ||
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+
+        <h1>Welcome {% if user %}{{user}}{% endif %}to the Group 14's Projects App!</h1>
+
+        <h1>Listing projects</h1>
+
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+            </tr>
+            {% for project in projectss %}
+            <tr>
+                <td><a href="{{ url_for('getProject', project_id=project.id) }}">{{ project.title }}</a></td>
+                <td>{{ project.date }}</td>
+                <td><a href="{{ url_for('updateProject', project_id=project.id) }}">Edit</a></td>
+                <td>
+                    <form action="{{ url_for('deleteProject',  project_id=project.id) }}" method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
