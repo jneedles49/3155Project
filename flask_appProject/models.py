@@ -1,6 +1,21 @@
 from database import db
 import datetime
 
+class ProjectReal(db.Model):
+    id = db.Column("id", db.Integer, primary_key=True)
+    title = db.Column("title", db.String(200))
+    text = db.Column("text", db.String(100))
+    date = db.Column("date", db.String(50))
+    # can create a foreign key; referencing the .id variable in the User class, so that is why it is a lowercase u
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    comments = db.relationship("Comment", backref="project", cascade="all, delete-orphan", lazy=True)
+    notes = db.relationship("Note", backref="project", cascade="all, delete-orphan", lazy=True)
+
+    def __init__(self, title, text, date, user_id):
+        self.title = title 
+        self.text = text
+        self.date = date
+        self.user_id = user_id
 class Note(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     title = db.Column("title", db.String(200))
@@ -9,6 +24,7 @@ class Note(db.Model):
     # can create a foreign key; referencing the .id variable in the User class, so that is why it is a lowercase u
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     comments = db.relationship("Comment", backref="note", cascade="all, delete-orphan", lazy=True)
+    projects = db.relationship("Project", backref="note", cascade="all, delete-orphan", lazy=True) #check the backref if it fails 
 
     def __init__(self, title, text, date, user_id):
         self.title = title 
