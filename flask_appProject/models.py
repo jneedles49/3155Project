@@ -54,6 +54,7 @@ class Comment(db.Model):
     content = db.Column(db.VARCHAR, nullable=False)
     note_id = db.Column(db.Integer, db.ForeignKey("note.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
 
     def __init__(self, content, note_id, user_id):
         self.date_posted = datetime.date.today()
