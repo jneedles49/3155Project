@@ -15,6 +15,7 @@ import bcrypt
 from forms import LoginForm
 from models import Comment as Comment
 from forms import RegisterForm, LoginForm, CommentForm
+from models import ProjectReal as ProjectReal
 app = Flask(__name__)     # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
@@ -34,7 +35,8 @@ with app.app_context():
 def index():
     # check if a user is in a saved session
     if session.get('user'):
-        return render_template("index.html", user=session['user'])
+        my_projects = db.session.query(ProjectReal).filter_by(user_id=session['user_id']).all()
+        return render_template('projects.html', projects=my_projects, user=session['user'])
     return render_template("index.html")
 
 @app.route('/projects')
@@ -42,8 +44,8 @@ def get_projects():
     # check if a user is saved in session
     if session.get('user'):
         # retrieve notes from database
-        my_notes = db.session.query(Note).filter_by(user_id=session['user_id']).all()
-        return render_template('notes.html', notes=my_notes, user=session['user'])
+        my_projects = db.session.query(ProjectReal).filter_by(user_id=session['user_id']).all()
+        return render_template('projects.html', projects=my_projects, user=session['user'])
     else:
         return redirect(url_for('login'))
 
@@ -70,16 +72,16 @@ def get_note(note_id):
     else:
         return redirect(url_for('login'))
 
-@app.route('/projects/<project_id>')
-def get_project(project_id):
+@app.route('/projects/<project_real_id>')
+def get_project(project_real_id):
     # check if a user is saved in session
     if session.get('user'):
         # retrieve note from data base
-        my_note = db.session.query(Note).filter_by(id=project_id, user_id=session['user_id']).one()
+        my_project = db.session.query(ProjectReal).filter_by(id=project_real_id, user_id=session['user_id']).one()
 
         # create a comment form object
         form = CommentForm()
-        return render_template('note.html', note=my_note, user=session['user'], form=form)
+        return render_template('note.html', project=my_project, user=session['user'], form=form)
     else:
         return redirect(url_for('login'))
 
@@ -97,7 +99,7 @@ def new_note():
             from datetime import date
             today = date.today()
             today = today.strftime("%m-%d-%Y")
-            new_record = Note(title, text, today, session['user_id'])
+            new_record = Note(title, text, today, session['user_id', 'project_real_id'])
             db.session.add(new_record)
             db.session.commit()
             return redirect(url_for('get_notes'))
@@ -118,20 +120,20 @@ def new_project():
             from datetime import date
             today = date.today()
             today = today.strftime("%m-%d-%Y")
-            new_record = Note(title, text, today, session['user_id'])
+            new_record = ProjectReal(title, text, today, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
-            return redirect(url_for('get_notes'))
+            return redirect(url_for('get_projects'))
         else:
         # GET request - show new note form
         # retrieve user from database
-            return render_template('new.html', user=session['user'])
+            return render_template('newProject.html', user=session['user'])
     else:
         # user is not in session redirect to login
         return redirect(url_for('login'))
 
-@app.route('/projects/edit/<project_id>', methods=['GET', 'POST'])
-def update_project(project_id):
+@app.route('/projects/edit/<project_real_id>', methods=['GET', 'POST'])
+def update_project(project_real_id):
         # check if a user is saved in session
     if session.get('user'):
     # check method for request
@@ -140,21 +142,21 @@ def update_project(project_id):
             title = request.form['title']
         # get note data
             text = request.form['noteText']
-            note = db.session.query(Note).filter_by(id=project_id).one()
+            project = db.session.query(ProjectReal).filter_by(id=project_real_id).one()
         # update note data
-            note.title = title
-            note.text = text
+            project.title = title
+            project.text = text
         # update note in DB
-            db.session.add(note)
+            db.session.add(project)
             db.session.commit()
 
             return redirect(url_for('get_project'))
         else:
         # GET request - show new note form to edit note
-    # retrieve note from database
-         my_note = db.session.query(Note).filter_by(id=project_id).one()
+        # retrieve note from database
+         my_project = db.session.query(ProjectReal).filter_by(id=project_real_id).one()
         
-        return render_template('new.html', note=my_note, user=session['user'])
+        return render_template('newProject.html', project=my_project, user=session['user'])
     else:
         # user is not in session redirect to login
         
@@ -203,12 +205,12 @@ def delete_note(note_id):
         # user is not in session redirect to login
         return redirect(url_for('login'))
 
-@app.route('/projects/delete/<project_id>', methods=['POST'])
-def delete_project(project_id):
+@app.route('/projects/delete/<project_real_id>', methods=['POST'])
+def delete_project(project_real_id):
         # check if a user is saved in session
     if session.get('user'):
     # retrieve note from database
-        my_project = db.session.query(Note).filter_by(id=project_id).one()
+        my_project = db.session.query(ProjectReal).filter_by(id=project_real_id).one()
         db.session.delete(my_project)
         db.session.commit()
         

@@ -10,7 +10,9 @@
             <div class="navdiv">
                 <nav>
                     <a href="{{ url_for('index') }}"> Home</a> ||
+                    <a href="{{ url_for('get_projects') }}"> My Projects</a> ||
                     <a href="{{ url_for('get_notes') }}"> My Notes</a> ||
+                    <a href="{{ url_for('new_project') }}"> Add Project</a> ||
                     <a href="{{ url_for('new_note') }}">Add Note</a>
                 </nav>
             {% if user %}

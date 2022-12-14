@@ -8,9 +8,8 @@ class ProjectReal(db.Model):
     date = db.Column("date", db.String(50))
     # can create a foreign key; referencing the .id variable in the User class, so that is why it is a lowercase u
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    comments = db.relationship("Comment", backref="project", cascade="all, delete-orphan", lazy=True)
-    notes = db.relationship("Note", backref="project", cascade="all, delete-orphan", lazy=True)
-
+    notes = db.relationship("Note", backref="project_real", cascade="all, delete-orphan", lazy=True)
+    comments = db.relationship("Comment", backref="project_real", cascade="all, delete-orphan", lazy=True)
     def __init__(self, title, text, date, user_id):
         self.title = title 
         self.text = text
@@ -24,13 +23,14 @@ class Note(db.Model):
     # can create a foreign key; referencing the .id variable in the User class, so that is why it is a lowercase u
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     comments = db.relationship("Comment", backref="note", cascade="all, delete-orphan", lazy=True)
-    projects = db.relationship("Project", backref="note", cascade="all, delete-orphan", lazy=True) #check the backref if it fails 
+    project_real_id = db.Column(db.Integer, db.ForeignKey("project_real.id"), nullable=False) 
 
-    def __init__(self, title, text, date, user_id):
+    def __init__(self, title, text, date, user_id, project_real_id):
         self.title = title 
         self.text = text
         self.date = date
         self.user_id = user_id
+        self.project_real_id = project_real_id
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -41,6 +41,7 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False)
     notes = db.relationship("Note", backref="user", lazy=True)
     comments = db.relationship("Comment", backref="user", lazy=True)
+    projects = db.relationship("ProjectReal", backref="user", lazy=True)
 
     def __init__(self, first_name, last_name, email, password):
         self.first_name = first_name
@@ -54,10 +55,11 @@ class Comment(db.Model):
     content = db.Column(db.VARCHAR, nullable=False)
     note_id = db.Column(db.Integer, db.ForeignKey("note.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    project_real_id = db.Column(db.Integer, db.ForeignKey("project_real.id"), nullable=False)
 
-    def __init__(self, content, note_id, user_id):
+    def __init__(self, content, note_id, user_id, project_real_id):
         self.date_posted = datetime.date.today()
         self.content = content
         self.note_id = note_id
         self.user_id = user_id
+        self.project_real_id = project_real_id
