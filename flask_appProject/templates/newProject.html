@@ -17,7 +17,7 @@
 
         <h1>Welcome {{user}} to the 49er Notes App!</h1>
     {% if note %}
-        <form action="{{ url_for('update_project', project_real_id=project_real.id) }}" method="post">
+        <form action="{{ url_for('update_project', project_id=project.id) }}" method="post">
     {% else %}
         <form action="new" method="post">
     {% endif %}
@@ -26,15 +26,15 @@
             <p><label>Project </label></p>
             <p>
                 <textarea name="noteText"  rows="6" cols="0">
-                {% if note %}
-                    {{note.text}}
+                {% if project %}
+                    {{project.text}}
                 {% else %}
                     Add your project description here ...
                 {% endif %}
                 </textarea>
             </p>
             <p>
-                {% if note %}
+                {% if project %}
                     <input type="submit" value="Update Project"/>
                 {% else %}
                     <input type="submit" value="Add Project"/>

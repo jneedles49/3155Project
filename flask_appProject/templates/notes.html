@@ -17,14 +17,14 @@
 
         <h1>Welcome {{user}} to the 49er Notes App!</h1>
         
-        <h1>Listing notes in {{project}}</h1>
+        <h1>Listing notes in {{project.name}}</h1>
 
         <table>
             <tr>
                 <th>Title</th>
                 <th>Date</th>
             </tr>
-            {% for note in notes %}
+            {% for note in project %}
             <tr>
                 <td><a href="{{ url_for('get_note', note_id=note.id) }}">{{ note.title }} </a></td>
                 <td>{{ note.date }}</td>
