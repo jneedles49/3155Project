@@ -34,8 +34,7 @@ with app.app_context():
 def index():
     # check if a user is in a saved session
     if session.get('user'):
-        my_projects = db.session.query(Project).filter_by(user_id=session['user_id']).all()
-        return render_template('projects.html', projects=my_projects, user=session['user'])
+        return render_template('index.html', projects=my_projects, user=session['user'])
     return render_template("index.html")
 
 
